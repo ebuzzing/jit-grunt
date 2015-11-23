@@ -9,14 +9,14 @@ module.exports = function (grunt, mappings) {
 
     if (options.loadTasks) {
       options.loadTasks = options.loadTasks || [ ];
-      jit.customTasksDirs = options.loadTasks.map((dir) => {
+      jit.customTasksDirs = options.loadTasks.map(function (dir) {
         return path.resolve(dir);
       });
     }
 
     if (options.customTasksDirs) {
       options.customTasksDirs = options.customTasksDirs || [ ];
-      jit.customTasksDirs = options.customTasksDirs.map((dir) => {
+      jit.customTasksDirs = options.customTasksDirs.map(function (dir) {
         return path.resolve(dir);
       });
     }
