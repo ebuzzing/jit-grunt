@@ -2,9 +2,9 @@
   "esnext": true,
 
   "maxparams": 5,
-  "maxdepth": 3,
+  "maxdepth": 4,
   "maxstatements": 30,
-  "maxcomplexity": 10,
+  "maxcomplexity": 11,
   "maxlen": 500,
 
   "node": true,

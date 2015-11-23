@@ -8,15 +8,21 @@ module.exports = function (grunt, mappings) {
     options = options || {};
 
     if (options.loadTasks) {
-      jit.customTasksDir = path.resolve(options.loadTasks);
+      options.loadTasks = options.loadTasks || [ ];
+      jit.customTasksDirs = options.loadTasks.map((dir) => {
+        return path.resolve(dir);
+      });
     }
 
-    if (options.customTasksDir) {
-      jit.customTasksDir = path.resolve(options.customTasksDir);
+    if (options.customTasksDirs) {
+      options.customTasksDirs = options.customTasksDirs || [ ];
+      jit.customTasksDirs = options.customTasksDirs.map((dir) => {
+        return path.resolve(dir);
+      });
     }
 
-    if (options.pluginsRoot) {
-      jit.pluginsRoot = options.pluginsRoot;
+    if (options.pluginsRoots) {
+      jit.pluginsRoots = options.pluginsRoots;
     }
   };
 };

@@ -104,29 +104,29 @@ require('jit-grunt')(grunt, {
 
 ### Options
 
-#### pluginsRoot
+#### pluginsRoots
 
-Type: `String`  
-Default: `'node_modules'`
+Type: `String[]`  
+Default: `['node_modules']`
 
-Root directory of grunt plugins.
+An array of root directories of grunt plugins.
 
 ```js
 require('jit-grunt')(grunt)({
-  pluginsRoot: 'other/dir'
+  pluginsRoots: 'other/dir'
 });
 ```
 
-#### customTasksDir
+#### customTasksDirs
 
-Type: `String`  
-Default: `null`
+Type: `String[]`  
+Default: `[]`
 
 JIT Loading for custom tasks dir (replacement of [grunt.loadTasks]).
 
 ```js
 require('jit-grunt')(grunt)({
-  customTasksDir: 'custom/dir'
+  customTasksDirs: ['custom/dir']
 });
 ```
 
@@ -137,7 +137,7 @@ Search in the following order:
 
 #### loadTasks
 
-Alias to `customTasksDir`.
+Alias to `customTasksDirs`.
 
 
 ## Example
@@ -152,7 +152,6 @@ https://github.com/shootaroo/jit-grunt/tree/master/example
 - 2014-08-07   v0.8.0   Support grunt.registerTask in plugin #19.
 - 2014-08-07   v0.7.1   Fix log output.
 - 2014-05-19   v0.7.0   Support custom task by CoffeeScript.
-- 2014-05-08   v0.6.0   Add option customTasksDir and pluginsRoot.
 - 2014-04-14   v0.5.0   Support static mappings for custom tasks.
 - 2014-04-14   v0.4.2   Fix loadTasks path.
 - 2014-04-09   v0.4.1   Revert path.resolve.

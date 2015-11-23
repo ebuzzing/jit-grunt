@@ -5,7 +5,8 @@ module.exports = function (grunt) {
   require('../jit-grunt')(grunt, {
     custom3: 'static/custom.js'
   })({
-    customTasksDir: 'custom'
+    customTasksDirs: ['custom', 'custom2'],
+    pluginsRoots: ['node_modules', 'multiple/node_modules']
   });
 
   grunt.initConfig({

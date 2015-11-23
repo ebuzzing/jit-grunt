@@ -1,0 +1,6 @@
+{
+  "name": "example-multiple",
+  "devDependencies": {
+    "grunt-wget": "~0.1.0"
+  }
+}

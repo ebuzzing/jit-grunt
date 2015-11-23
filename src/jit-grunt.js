@@ -6,7 +6,7 @@ const PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
 const EXTENSIONS = ['.coffee', '.js'];
 
 const jit = {
-  pluginsRoot: 'node_modules',
+  pluginsRoots: ['node_modules'],
   mappings: {}
 };
 
@@ -33,23 +33,27 @@ jit.findPlugin = function (taskName) {
         return this.loadPlugin(taskName, taskPath, true);
       }
     } else {
-      let dir = path.join(this.pluginsRoot, pluginName, 'tasks');
-      taskPath = this.findUp(path.resolve(), function (cwd) {
-        let findPath = path.join(cwd, dir);
-        return fs.existsSync(findPath) ? findPath : null;
-      });
-      if (taskPath) {
-        return this.loadPlugin(pluginName, taskPath);
+      for (let i = this.pluginsRoots.length; i--;) {
+        let dir = path.join(this.pluginsRoots[i], pluginName, 'tasks');
+        taskPath = this.findUp(path.resolve(), function (cwd) {
+          let findPath = path.join(cwd, dir);
+          return fs.existsSync(findPath) ? findPath : null;
+        });
+        if (taskPath) {
+          return this.loadPlugin(pluginName, taskPath);
+        }
       }
     }
   }
 
   // Custom Tasks
-  if (this.customTasksDir) {
+  if (this.customTasksDirs) {
     for (let i = EXTENSIONS.length; i--;) {
-      taskPath = path.join(this.customTasksDir, taskName + EXTENSIONS[i]);
-      if (fs.existsSync(taskPath)) {
-        return this.loadPlugin(taskName, taskPath, true);
+      for (let d = this.customTasksDirs.length; d--;) {
+        taskPath = path.join(this.customTasksDirs[d], taskName + EXTENSIONS[i]);
+        if (fs.existsSync(taskPath)) {
+          return this.loadPlugin(taskName, taskPath, true);
+        }
       }
     }
   }
@@ -59,9 +63,11 @@ jit.findPlugin = function (taskName) {
   taskPath = this.findUp(path.resolve(), cwd => {
     for (let p = PREFIXES.length; p--;) {
       pluginName = PREFIXES[p] + dashedName;
-      let findPath = path.join(cwd, this.pluginsRoot, pluginName, 'tasks');
-      if (fs.existsSync(findPath)) {
-        return findPath;
+      for (let i = this.pluginsRoots.length; i--;) {
+        let findPath = path.join(cwd, this.pluginsRoots[i], pluginName, 'tasks');
+        if (fs.existsSync(findPath)) {
+          return findPath;
+        }
       }
     }
   });

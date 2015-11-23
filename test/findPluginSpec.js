@@ -13,11 +13,11 @@ const loadPlugin = sinon.stub(jit, 'loadPlugin');
 describe('Plugin find', () => {
 
   beforeEach(() => {
-    jit.customTasksDir = undefined;
+    jit.customTasksDirs = undefined;
     jit.mappings = {
       bar: 'grunt-foo'
     };
-    jit.pluginsRoot = 'node_modules';
+    jit.pluginsRoots = ['node_modules'];
     existsSync.reset();
     loadPlugin.reset();
   });
@@ -79,7 +79,7 @@ describe('Plugin find', () => {
   });
 
   it('Custom task', () => {
-    jit.customTasksDir = path.resolve('custom');
+    jit.customTasksDirs = [path.resolve('custom')];
 
     existsSync.withArgs(path.resolve('custom/foo.js')).returns(true);
 
@@ -91,10 +91,31 @@ describe('Plugin find', () => {
   });
 
   it('Custom task: CoffeeScript', () => {
-    jit.customTasksDir = path.resolve('custom');
+    jit.customTasksDirs = [path.resolve('custom')];
 
     existsSync.withArgs(path.resolve('custom/foo.js')).returns(false);
     existsSync.withArgs(path.resolve('custom/foo.coffee')).returns(true);
+
+    jit.findPlugin('foo');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('custom/foo.coffee'), true]);
+  });
+
+  it('Custom task multiple dirs', () => {
+    jit.customTasksDirs = [path.resolve('custom'), path.resolve('other-custom')];
+
+    existsSync.withArgs(path.resolve('other-custom/bar.js')).returns(true);
+    existsSync.withArgs(path.resolve('custom/foo.coffee')).returns(true);
+
+    jit.findPlugin('bar');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['bar', path.resolve('other-custom/bar.js'), true]);
+
+    loadPlugin.reset();
 
     jit.findPlugin('foo');
 
@@ -173,11 +194,32 @@ describe('Plugin find', () => {
   });
 
   it('Other node_modules dir', () => {
-    jit.pluginsRoot = 'other/dir';
+    jit.pluginsRoots = ['other/dir'];
 
     existsSync.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('other/dir/grunt-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('other/dir/foo/tasks')).returns(true);
+
+    jit.findPlugin('foo');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('other/dir/foo/tasks')]);
+  });
+
+  it('Multiple node_modules dirs', () => {
+    jit.pluginsRoots = ['one/dir', 'other/dir'];
+
+    existsSync.withArgs(path.resolve('one/dir/bar/tasks')).returns(true);
+    existsSync.withArgs(path.resolve('other/dir/foo/tasks')).returns(true);
+
+    jit.findPlugin('bar');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['bar', path.resolve('one/dir/bar/tasks')]);
+
+    loadPlugin.reset();
 
     jit.findPlugin('foo');
 
