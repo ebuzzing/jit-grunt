@@ -1,5 +1,5 @@
 {
-  "name": "jit-grunt",
+  "name": "teads-jit-grunt",
   "version": "0.9.1",
   "description": "JIT plugin loader for Grunt.",
   "keywords": [
