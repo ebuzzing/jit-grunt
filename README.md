@@ -1,4 +1,4 @@
-# jit-grunt 0.9.1 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# teads-jit-grunt 0.9.1 
 
 A JIT(Just In Time) plugin loader for Grunt.  
 Load time of Grunt does not slow down even if there are many plugins.
@@ -34,7 +34,7 @@ umm...
 
 ### After
 ```js
-require('jit-grunt')(grunt);
+require('teads-jit-grunt')(grunt);
 ```
 
 ```
@@ -52,17 +52,17 @@ Have a pleasant Grunt life!
 
 ## Install
 ```
-npm install jit-grunt --save-dev
+npm install teads-jit-grunt --save-dev
 ```
 
 
 ## Usage
 
-Removes `grunt.loadNpmTasks`, then add the `require('jit-grunt')(grunt)` instead. Only it.
+Removes `grunt.loadNpmTasks`, then add the `require('teads-jit-grunt')(grunt)` instead. Only it.
 
 ```js
 module.exports = function (grunt) {
-  require('jit-grunt')(grunt);
+  require('teads-jit-grunt')(grunt);
 
   grunt.initConfig({
     ...
@@ -94,7 +94,7 @@ It is used when there is a plugin that can not be resolved in the automatic mapp
 `taskname`: `grunt-plugin-name`
 
 ```js
-require('jit-grunt')(grunt, {
+require('teads-jit-grunt')(grunt, {
   sprite: 'grunt-spritesmith',
   foo: '@abc/grunt-foo',        // for private modules.
   bar: 'custom/bar.js'          // for custom tasks.
@@ -112,7 +112,7 @@ Default: `['node_modules']`
 An array of root directories of grunt plugins.
 
 ```js
-require('jit-grunt')(grunt)({
+require('teads-jit-grunt')(grunt)({
   pluginsRoots: 'other/dir'
 });
 ```
@@ -125,7 +125,7 @@ Default: `[]`
 JIT Loading for custom tasks dir (replacement of [grunt.loadTasks]).
 
 ```js
-require('jit-grunt')(grunt)({
+require('teads-jit-grunt')(grunt)({
   customTasksDirs: ['custom/dir']
 });
 ```
@@ -142,11 +142,12 @@ Alias to `customTasksDirs`.
 
 ## Example
 
-https://github.com/shootaroo/jit-grunt/tree/master/example
+https://github.com/ebuzzing/teads-jit-grunt/tree/master/example
 
 
 ## Release History
 
+- 2015-12-01   v0.10.0  Bundle with teads naming.
 - 2015-02-02   v0.9.1   Support npm private modules.
 - 2014-10-15   v0.9.0   Support parent directories of node_modules.
 - 2014-08-07   v0.8.0   Support grunt.registerTask in plugin #19.

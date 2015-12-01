@@ -76,7 +76,7 @@ jit.findPlugin = function (taskName) {
   }
 
   this.grunt.log.writeln(`
-jit-grunt: Plugin for the "${taskName}" task not found.
+teads-jit-grunt: Plugin for the "${taskName}" task not found.
 If you have installed the plugin already, please setting the static mapping.
 See`.yellow, `https://github.com/shootaroo/jit-grunt#static-mappings
 `.cyan);
