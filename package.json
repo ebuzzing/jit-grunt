@@ -8,12 +8,12 @@
     "jit",
     "loader"
   ],
-  "homepage": "https://github.com/shootaroo/jit-grunt",
-  "bugs": "https://github.com/shootaroo/jit-grunt/issues",
+  "homepage": "https://github.com/ebuzzing/jit-grunt",
+  "bugs": "https://github.com/ebuzzing/jit-grunt/issues",
   "license": "MIT",
   "author": {
-    "name": "shootaroo",
-    "email": "shotaro.tsubouchi@gmail.com"
+    "name": "arnaud",
+    "email": "bosc.arno@gmail.com"
   },
   "files": [
     "lib",
@@ -22,7 +22,7 @@
   "main": "jit-grunt",
   "repository": {
     "type": "git",
-    "url": "git://github.com/shootaroo/jit-grunt.git"
+    "url": "git://github.com/ebuzzing/jit-grunt.git"
   },
   "scripts": {
     "build": "babel src --out-dir lib --source-maps-inline",
